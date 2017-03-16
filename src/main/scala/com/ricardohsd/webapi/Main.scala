@@ -5,12 +5,12 @@ import akka.actor._
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-object Main {
-  def main(args: Array[String]): Unit = {
-    implicit val system = ActorSystem("myuser")
+object Main extends App {
+  implicit val system = ActorSystem("myuser")
 
-    system.actorOf(Props(new Master), "user-app-master")
+  system.actorOf(Props(new Master), "user-app-master")
 
-    Await.ready(system.whenTerminated, Duration.Inf)
-  }
+  sys.addShutdownHook({
+    Await.ready(system.terminate(), 20 seconds)
+  })
 }
