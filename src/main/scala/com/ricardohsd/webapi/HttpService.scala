@@ -1,9 +1,9 @@
 package com.ricardohsd.webapi
 
 import akka.actor._
-import akka.pattern._
 import akka.http.scaladsl.Http
-import akka.stream.{ActorMaterializer, Materializer}
+import akka.pattern._
+import akka.stream.{ ActorMaterializer, Materializer }
 import akka.util.Timeout
 
 import scala.concurrent.ExecutionContext
@@ -16,7 +16,7 @@ object HttpService {
   }
 
   private def route(httpService: ActorRef, address: String, port: Int, internalTimeout: Timeout,
-                    userRepository: ActorRef, system: ActorSystem)(implicit ec: ExecutionContext, mat: Materializer) = {
+    userRepository: ActorRef, system: ActorSystem)(implicit ec: ExecutionContext, mat: Materializer) = {
     import akka.http.scaladsl.server.Directives._
     import io.circe.generic.auto._
 
@@ -25,7 +25,7 @@ object HttpService {
 }
 
 class HttpService(address: String, port: Int, internalTimeout: Timeout, userRepository: ActorRef)
-  extends Actor with ActorLogging {
+    extends Actor with ActorLogging {
   import HttpService._
   import context.dispatcher
 

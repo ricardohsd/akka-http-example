@@ -4,7 +4,7 @@ import akka.actor.Props
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import akka.util.ByteString
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{ Matchers, WordSpec }
 
 import scala.concurrent.duration._
 
@@ -33,14 +33,16 @@ class UserServiceTest extends WordSpec with Matchers with ScalatestRouteTest {
            |{
            |    "name":"Peter"
            |}
-        """.stripMargin)
+        """.stripMargin
+      )
       val postRequest = HttpRequest(
         HttpMethods.POST,
         uri = "/users",
-        entity = HttpEntity(MediaTypes.`application/json`, jsonRequest))
+        entity = HttpEntity(MediaTypes.`application/json`, jsonRequest)
+      )
 
       postRequest ~> route ~> check {
-        responseEntity shouldEqual  HttpEntity(ContentTypes.`text/plain(UTF-8)`, "OK")
+        responseEntity shouldEqual HttpEntity(ContentTypes.`text/plain(UTF-8)`, "OK")
         status shouldEqual StatusCodes.OK
       }
     }
@@ -56,14 +58,16 @@ class UserServiceTest extends WordSpec with Matchers with ScalatestRouteTest {
            |{
            |    "name":"Anderson"
            |}
-        """.stripMargin)
+        """.stripMargin
+      )
       val postRequest = HttpRequest(
         HttpMethods.POST,
         uri = "/users",
-        entity = HttpEntity(MediaTypes.`application/json`, jsonRequest))
+        entity = HttpEntity(MediaTypes.`application/json`, jsonRequest)
+      )
 
       postRequest ~> route ~> check {
-        responseEntity shouldEqual  HttpEntity(ContentTypes.`text/plain(UTF-8)`, "User exists.")
+        responseEntity shouldEqual HttpEntity(ContentTypes.`text/plain(UTF-8)`, "User exists.")
         status shouldBe StatusCodes.Conflict
       }
     }

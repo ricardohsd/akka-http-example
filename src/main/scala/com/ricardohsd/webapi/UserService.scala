@@ -2,14 +2,14 @@ package com.ricardohsd.webapi
 
 import akka.actor.ActorRef
 import akka.http.scaladsl.model.StatusCodes
-import akka.pattern._
 import akka.http.scaladsl.server.Directives
+import akka.pattern._
 import akka.util.Timeout
 
 import scala.concurrent.ExecutionContext
 
 class UserService(userRepository: ActorRef, internalTimeout: Timeout)(implicit executionContext: ExecutionContext)
-  extends Directives {
+    extends Directives {
   import de.heikoseeberger.akkahttpcirce.CirceSupport._
   import io.circe.generic.auto._
 

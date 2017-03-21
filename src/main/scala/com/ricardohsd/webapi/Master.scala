@@ -1,6 +1,7 @@
 package com.ricardohsd.webapi
 
-import akka.actor.{Actor, ActorLogging, ActorRef, SupervisorStrategy, Terminated}
+import akka.actor.{ Actor, ActorLogging, ActorRef, SupervisorStrategy, Terminated }
+
 import scala.concurrent.duration._
 
 class Master extends Actor with ActorLogging {

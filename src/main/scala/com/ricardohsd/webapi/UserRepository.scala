@@ -1,6 +1,6 @@
 package com.ricardohsd.webapi
 
-import akka.actor.{ActorLogging, Props, Actor}
+import akka.actor.{ Actor, ActorLogging, Props }
 
 object UserRepository {
   case class User(name: String)
