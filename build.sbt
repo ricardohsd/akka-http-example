@@ -21,6 +21,7 @@ libraryDependencies ++= {
     "io.circe"            %% "circe-java8"        % "0.7.0",
 
     "org.scalatest"       %% "scalatest"          % scalaTestV % Test,
-    "com.typesafe.akka"   %% "akka-testkit"       % akkaV      % Test
+    "com.typesafe.akka"   %% "akka-testkit"       % akkaV      % Test,
+    "com.typesafe.akka"   %% "akka-http-testkit"  % akkaHttpV  % Test
   )
 }

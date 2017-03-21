@@ -27,7 +27,7 @@ class UserService(userRepository: ActorRef, internalTimeout: Timeout)(implicit e
     entity(as[UserRepository.User]) { user =>
       onSuccess(userRepository ? UserRepository.AddUser(user.name)) {
         case UserRepository.UserAdded(_) => complete(StatusCodes.OK)
-        case UserRepository.UserExists(_) => complete(StatusCodes.Conflict)
+        case UserRepository.UserExists(_) => complete(StatusCodes.Conflict, "User exists.")
       }
     }
   }
