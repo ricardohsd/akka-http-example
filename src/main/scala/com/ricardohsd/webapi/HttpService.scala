@@ -3,36 +3,19 @@ package com.ricardohsd.webapi
 import akka.actor._
 import akka.http.scaladsl.Http
 import akka.pattern._
-import akka.stream.{ ActorMaterializer, Materializer }
+import akka.stream.ActorMaterializer
 import akka.util.Timeout
-
-import scala.concurrent.ExecutionContext
-
-object HttpService {
-  final val Name = "http-service"
-
-  def props(address: String, port: Int, internalTimeout: Timeout, userRepository: ActorRef): Props = {
-    Props(new HttpService(address, port, internalTimeout, userRepository))
-  }
-
-  private def route(httpService: ActorRef, address: String, port: Int, internalTimeout: Timeout,
-    userRepository: ActorRef, system: ActorSystem)(implicit ec: ExecutionContext, mat: Materializer) = {
-    import akka.http.scaladsl.server.Directives._
-    import io.circe.generic.auto._
-
-    new UserService(userRepository, internalTimeout).route
-  }
-}
 
 class HttpService(address: String, port: Int, internalTimeout: Timeout, userRepository: ActorRef)
     extends Actor with ActorLogging {
-  import HttpService._
   import context.dispatcher
 
   private implicit val mat = ActorMaterializer()
 
+  val userService = new UserServiceRoute(userRepository, internalTimeout)
+
   Http(context.system)
-    .bindAndHandle(route(self, address, port, internalTimeout, userRepository, context.system), address, port)
+    .bindAndHandle(userService.route, address, port)
     .pipeTo(self)
 
   override def receive = binding

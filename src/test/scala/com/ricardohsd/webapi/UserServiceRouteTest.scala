@@ -8,13 +8,13 @@ import org.scalatest.{ Matchers, WordSpec }
 
 import scala.concurrent.duration._
 
-class UserServiceTest extends WordSpec with Matchers with ScalatestRouteTest {
+class UserServiceRouteTest extends WordSpec with Matchers with ScalatestRouteTest {
   val internalTimeout = 3 seconds
 
   "Users API" should {
     "Get users from /users" in {
       val userRepository = system.actorOf(Props(classOf[UserRepository]))
-      val route = new UserService(userRepository, internalTimeout).route
+      val route = new UserServiceRoute(userRepository, internalTimeout).route
 
       userRepository ! UserRepository.AddUser("john")
 
@@ -26,7 +26,7 @@ class UserServiceTest extends WordSpec with Matchers with ScalatestRouteTest {
 
     "Posting to /users should add the user" in {
       val userRepository = system.actorOf(Props(classOf[UserRepository]))
-      val route = new UserService(userRepository, internalTimeout).route
+      val route = new UserServiceRoute(userRepository, internalTimeout).route
 
       val jsonRequest = ByteString(
         s"""
@@ -49,7 +49,7 @@ class UserServiceTest extends WordSpec with Matchers with ScalatestRouteTest {
 
     "Posting an existent user to /users should return a conflict" in {
       val userRepository = system.actorOf(Props(classOf[UserRepository]))
-      val route = new UserService(userRepository, internalTimeout).route
+      val route = new UserServiceRoute(userRepository, internalTimeout).route
 
       userRepository ! UserRepository.AddUser("Anderson")
 

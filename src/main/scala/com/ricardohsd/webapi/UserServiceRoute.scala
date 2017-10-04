@@ -8,7 +8,7 @@ import akka.util.Timeout
 
 import scala.concurrent.ExecutionContext
 
-class UserService(userRepository: ActorRef, internalTimeout: Timeout)(implicit executionContext: ExecutionContext)
+class UserServiceRoute(userRepository: ActorRef, internalTimeout: Timeout)(implicit executionContext: ExecutionContext)
     extends Directives {
   import de.heikoseeberger.akkahttpcirce.CirceSupport._
   import io.circe.generic.auto._

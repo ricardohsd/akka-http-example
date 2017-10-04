@@ -1,6 +1,6 @@
 package com.ricardohsd.webapi
 
-import akka.actor.{ Actor, ActorLogging, ActorRef, SupervisorStrategy, Terminated }
+import akka.actor.{ Actor, ActorLogging, ActorRef, Props, SupervisorStrategy, Terminated }
 
 import scala.concurrent.duration._
 
@@ -23,8 +23,8 @@ class Master extends Actor with ActorLogging {
 
   protected def createHttpService(userRepositoryActor: ActorRef): ActorRef = {
     context.actorOf(
-      HttpService.props("localhost", 8081, 3 seconds, userRepositoryActor),
-      HttpService.Name
+      Props(new HttpService("localhost", 8081, 3 seconds, userRepositoryActor)),
+      "http-service"
     )
   }
 
